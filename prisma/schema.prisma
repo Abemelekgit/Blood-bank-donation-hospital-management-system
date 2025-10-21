@@ -1,0 +1,58 @@
+// Prisma schema for Blood Bank Donation app
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  CLIENT
+  NURSE
+  DOCTOR
+  ADMIN
+}
+
+enum BloodType {
+  A_POS
+  A_NEG
+  B_POS
+  B_NEG
+  AB_POS
+  AB_NEG
+  O_POS
+  O_NEG
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  phone     String   @unique
+  password  String
+  role      Role     @default(CLIENT)
+  createdAt DateTime @default(now())
+
+  profile   DonorProfile?
+}
+
+model DonorProfile {
+  id                    String     @id @default(cuid())
+  userId                String     @unique
+  user                  User       @relation(fields: [userId], references: [id])
+  bloodType             BloodType?
+  dateOfBirth           DateTime?
+  gender                String?
+  weightKg              Int?
+  address               String?
+  city                  String?
+  emergencyContactName  String?
+  emergencyContactPhone String?
+  medicalNotes          String?
+  consent               Boolean    @default(false)
+  updatedAt             DateTime   @updatedAt
+  createdAt             DateTime   @default(now())
+}
