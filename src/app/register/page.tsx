@@ -8,6 +8,7 @@ export default function RegisterPage() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showSignInSuggestion, setShowSignInSuggestion] = useState(false);
   const [success, setSuccess] = useState<string | null>(null);
 
   async function onSubmit(e: FormEvent) {
@@ -23,7 +24,15 @@ export default function RegisterPage() {
     setLoading(false);
     if (!res.ok) {
       const data = await res.json().catch(() => ({}));
-      setError(data.error ?? "Registration failed");
+      const message = data.error ?? "Registration failed";
+      // If it's a conflict (email or phone already registered), offer sign-in suggestion
+      if (res.status === 409) {
+        setError("An account with that email or phone already exists. Please sign in.");
+        setShowSignInSuggestion(true);
+      } else {
+        setError(message);
+        setShowSignInSuggestion(false);
+      }
     } else {
       // Auto sign in and redirect to profile
       const login = await signIn("credentials", { email: form.email, password: form.password, redirect: false });
@@ -145,6 +154,11 @@ export default function RegisterPage() {
             {error && (
               <div className="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-xl p-3">
                 <p className="text-red-700 dark:text-red-300 text-sm font-medium">{error}</p>
+                {showSignInSuggestion && (
+                  <div className="mt-2 text-sm">
+                    <a href="/login" className="text-rose-600 hover:text-rose-700 dark:text-rose-400 dark:hover:text-rose-300 font-medium">Sign in with your existing account</a>
+                  </div>
+                )}
               </div>
             )}
             {success && (
