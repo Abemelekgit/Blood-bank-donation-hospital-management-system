@@ -66,27 +66,27 @@ export default function LoginPage() {
           <form onSubmit={onSubmit} className="space-y-6">
             {/* Email Input */}
             <div>
-              <label className="block text-white font-bold text-sm mb-3">Email Address</label>
+              <label className="block text-sm font-bold mb-3 text-slate-900 dark:text-white">Email Address</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder="staff@bloodline.et"
-                className="w-full px-4 py-3 rounded-xl bg-white/20 dark:bg-slate-700/50 border border-white/40 dark:border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+                className="w-full px-4 py-3 rounded-xl bg-white/20 dark:bg-slate-700/50 border border-white/40 dark:border-white/20 text-black dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
               />
             </div>
 
             {/* Password Input */}
             <div>
-              <label className="block text-white font-bold text-sm mb-3">Password</label>
+              <label className="block text-sm font-bold mb-3 text-slate-900 dark:text-white">Password</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 placeholder="••••••••"
-                className="w-full px-4 py-3 rounded-xl bg-white/20 dark:bg-slate-700/50 border border-white/40 dark:border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
+                className="w-full px-4 py-3 rounded-xl bg-white/20 dark:bg-slate-700/50 border border-white/40 dark:border-white/20 text-black dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300 backdrop-blur-sm"
               />
             </div>
 
